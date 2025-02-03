@@ -1,0 +1,40 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name jtollena.42.fr;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    ssl_certificate     /etc/ssl/certs/jtollena.42.fr.cert.pem;
+    ssl_certificate_key /etc/ssl/certs/jtollena.42.fr.key.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    root /var/www/html;
+
+    # Add index.php to the list if you are using PHP
+    index index.php index.html index.htm index.nginx-debian.html;
+
+    server_name jtollena.42.fr;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # pass PHP scripts to FastCGI server
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass wordpress:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_intercept_errors on;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+    }
+}
+
