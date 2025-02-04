@@ -2,20 +2,22 @@ COMPOSE_DIR=srcs
 
 nocache:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build --no-cache
-	docker compose -f $(COMPOSE_DIR)/docker-compose.yml up
+	up
 	
 build:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build 
 
 up:
+	﻿﻿mkdir -p /home/jtollena/data/mariadb
+	mkdir -p /home/jtollena/data/wordpress
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml up
 
 down:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml down
 
 rebuild:
-	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build
-	docker compose -f $(COMPOSE_DIR)/docker-compose.yml up
+	build
+	up
 
 logs:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml logs -f
