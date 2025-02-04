@@ -20,5 +20,6 @@ RUN chmod +x /usr/local/bin/init_wordpress.sh && \
 
 WORKDIR /var/www/html/
 
-CMD ["/usr/local/bin/init_wordpress.sh"]
+ENTRYPOINT ["/usr/local/bin/init_wordpress.sh"]
+CMD ["php-fpm8.1", "-F"]
 

@@ -2,13 +2,14 @@ services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
+    image: nginx
     depends_on:
       - wordpress
     ports:
       - 443:443
     restart: always
     volumes:
-      - ~/jtollena/data/wordpress/:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - inception
     env_file: ".env"
@@ -18,7 +19,7 @@ services:
     image: mariadb
     restart: always
     volumes:
-      - ~/jtollena/data/mariadb2/:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     networks:
       - inception
     env_file: ".env"
@@ -28,11 +29,12 @@ services:
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
+    image: wordpress
     depends_on:
       - mariadb
     restart: always
     volumes:
-      - ~/jtollena/data/wordpress/:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - inception
     env_file: ".env"
@@ -45,6 +47,19 @@ services:
 networks:
   inception:
     driver: bridge
+volumes:
+  mariadb: 
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jtollena/data/mariadb
+      o: bind
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jtollena/data/wordpress
+      o: bind
 secrets:
   wp_admin_pass:
     file: ../secrets/wp_admin_pass.txt

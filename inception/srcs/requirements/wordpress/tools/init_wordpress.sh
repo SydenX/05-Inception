@@ -46,4 +46,4 @@ echo "WordPress successfully installed and configured !"
 rm -f wp-cli.phar
 
 echo "Starting PHP-FPM..."
-php-fpm8.1 -F
+exec "$@"
