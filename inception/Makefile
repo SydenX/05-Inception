@@ -8,8 +8,6 @@ build:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build 
 
 up:
-	﻿﻿mkdir -p /home/jtollena/data/mariadb
-	mkdir -p /home/jtollena/data/wordpress
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml up
 
 down:
