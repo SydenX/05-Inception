@@ -2,7 +2,7 @@ COMPOSE_DIR=srcs
 
 nocache:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build --no-cache
-	up
+	$(MAKE) up
 	
 build:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml build 
@@ -15,7 +15,9 @@ up:
 down:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml down
 
-rebuild: build up
+rebuild: 
+	$(MAKE) build 
+	$(MAKE) up
 
 logs:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml logs -f
