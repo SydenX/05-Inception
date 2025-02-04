@@ -15,9 +15,7 @@ up:
 down:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml down
 
-rebuild:
-	build
-	up
+rebuild: build up
 
 logs:
 	docker compose -f $(COMPOSE_DIR)/docker-compose.yml logs -f
