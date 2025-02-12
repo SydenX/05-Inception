@@ -48,17 +48,17 @@ networks:
   inception:
     driver: bridge
 volumes:
-  mariadb: 
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/jtollena/data/mariadb
-      o: bind
   wordpress:
     driver: local
     driver_opts:
       type: none
       device: /home/jtollena/data/wordpress
+      o: bind
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jtollena/data/mariadb
       o: bind
 secrets:
   wp_admin_pass:
